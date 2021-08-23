@@ -1,0 +1,15 @@
+es:
+  activerecord:
+    errors:
+      models:
+        inquilino:
+          attributes:
+            nombre:
+              blank: "no puede estar vacio"
+            apellido:
+              blank: "no puede estar vacio"
+            telefono:
+              blank: "no puede estar vacio"
+            rut: 
+              blank: "no puede estar vacio"
+              taken: "ya existe"

@@ -1,8 +1,5 @@
-<h1>Oficinas registradas</h1>
-<% @lista_espacios.each do |oficina| %>
-    <p> <%= oficina.codigo %> </p>
-    <p> <%= oficina.precio %> </p>
-    <p> <%= oficina.esta_alquilada %> </p>
-    <hr>
+<% @lista_espacios.each do |ofi| %>
+
+    <%= render 'tarjeta_oficina', espacio: ofi  %>
     
 <% end %>
