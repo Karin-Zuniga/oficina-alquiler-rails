@@ -1,6 +1,9 @@
 class EspaciosController < ApplicationController
+ 
+  before_action :validar_sesion
+  
   def listar
-    @lista_espacios = Espacio.all.order(id: :asc)
+    @lista_espacios = Espacio.includes(:inquilinos).order(id: :asc)
   end
 
   def crear

@@ -1,4 +1,4 @@
-<%= form_with(model: inquilino, url: '/inquilinos/crear') do |formulario| %>
+<%= form_with(model: inquilino) do |formulario| %>
     <div class="mb-3">
         <%= formulario.label :nombre, class: 'form-label' %>
         <%= formulario.text_field :nombre, class: 'form-control' %>
@@ -37,11 +37,18 @@
         <% end %>
     </div>
        
-
+    <div class="mb-3">
     <%= formulario.label :espacio_id %>
-    <%= formulario.select :espacio_id, options_from_collection_for_select(espacios, :id, :codigo, selected_key = inquilino.espacio.id), {}, {class: 'form-select'}%>
+
+        <% if inquilino.espacio %>
+            <%= formulario.select :espacio_id, options_from_collection_for_select(espacios, :id, :codigo, selected_key = inquilino.espacio.id), {}, {class: 'form-select'}%>
+        <% else %>
+            <%= formulario.select :espacio_id, options_from_collection_for_select(espacios, :id, :codigo) %>
+        <% end %>
+
+    </div>
 
     <%= formulario.submit 'Registrar inquilino', class: 'btn btn-primary' %>
 
-  
+    
 <% end %>

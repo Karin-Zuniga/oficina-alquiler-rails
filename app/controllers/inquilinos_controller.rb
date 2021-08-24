@@ -1,8 +1,10 @@
 class InquilinosController < ApplicationController
+
+    before_action :validar_sesion
+    before_action :buscar_inquilino, only: [:mostrar, :editar, :actualizar, :eliminar] 
+    
     def listar
-
-
-
+        @inquilinos = Inquilino.includes(:espacio).order(id: :asc)
     end
 
 
@@ -14,26 +16,21 @@ class InquilinosController < ApplicationController
     
     def mostrar
         
-        id_inquilino = params[:id]
-        @inquilino = Inquilino.find(id_inquilino)
+
 
     end
 
     def editar
-        id_inquilino = params[:id]
-        @inquilino = Inquilino.find(id_inquilino)
+        
         @espacios = Espacio.select(:id, :codigo).order(codigo: :asc)
 
 
     end
 
     def guardar
-        valores = params.require(:inquilino).permit(:nombre, :telefono, :rut, :espacio_id, :apellido)
-        puts "================================"
-        puts valores.inspect
-        puts "================================"
 
-        @inquilino = Inquilino.new(valores)
+
+        @inquilino = Inquilino.new(inquilino_params)
         
         if @inquilino.save
             redirect_to '/espacios/listar'
@@ -46,9 +43,12 @@ class InquilinosController < ApplicationController
 
     #put/patch
     def actualizar
-        @inquilino = Inquilino.find(params[:id])
-        valores = params.require(:inquilino).permit(:nombre, :apellido, :telefono, :rut, :oficina_id)
-        if inquilino.update(valores)
+       
+        if @inquilino.update(inquilino_params)
+            redirect_to inquilino_path
+        else
+            @espacios = Espacio.select(:id, :codigo).order(codigo: :asc)
+            render :editar
 
         end
 
@@ -56,8 +56,20 @@ class InquilinosController < ApplicationController
 
     #delete
     def eliminar
-
+        
+        @inquilino.destroy
+        redirect_to action: :listar
     end
-    
+
+    private
+
+    def inquilino_params
+        return params.require(:inquilino).permit(:nombre, :apellido, :telefono, :rut, :oficina_id)
+    end    
+
+    def buscar_inquilino
+        @inquilino = Inquilino.find(params[:id])
+        
+    end
 
 end

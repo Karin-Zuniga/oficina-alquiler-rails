@@ -1,0 +1,42 @@
+<h1>Inquilinos Registrados</h1>
+
+<%= link_to 'nuevo inquilino', "inquilinos/crear" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">RUT</th>
+      <th scope="col">Oficina</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inquilinos.each_with_index do |inquilino| %>    
+        <tr>
+
+            <td> <%= inquilino.id %></td>
+            <td> 
+                <%= link_to inquilino.nombre, inquilino_path(inquilino) %>
+
+            </td>
+
+            <td><%= inquilino.apellido %></td>
+            <td><%= inquilino.telefono %></td>
+            <td><%= inquilino.rut %></td>
+            <td><%= inquilino.espacio.codigo %></td>
+            <td><%= link_to 'Editar', editar_inquilino_url(inquilino) %> 
+            |
+            <%= link_to 'Eliminar',
+            inquilino_path(inquilino),
+            method: :delete,
+            data: {confirm: 'Seguro que quieres eliminarlo?'} 
+            %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

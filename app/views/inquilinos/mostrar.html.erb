@@ -1,7 +1,13 @@
-<br><br><br><br><br>
-<%= @inquilino.id %>
-<%= @inquilino.nombre %>
-<%= @inquilino.apellido %>
-<%= @inquilino.telefono %>
-<%= @inquilino.rut %>
-<%= @inquilino.espacio.codigo %>
+<div class="card" style="width: 18rem; margin-top: 1em;">
+
+    <div class="card-body">
+        <p class="card-text">nombre:   <%= @inquilino.nombre %> </p>
+        <p class="card-text">apellido: <%= @inquilino.apellido %> </p>
+        <p class="card-text">telefono: <%= @inquilino.telefono %> </p>
+        <p class="card-text">rut:      <%= @inquilino.rut %> </p>
+        <p class="card-text">oficina:  <%= @inquilino.espacio.codigo %> </p>
+
+
+        <a href="#" class="btn btn-primary">Editar</a>
+    </div>
+</div>
